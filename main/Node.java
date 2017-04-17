@@ -28,6 +28,12 @@ public class Node{
       return null;
    }
    
+   public void stabilize(){
+   
+   }
+   
+   
+   
    
    
 }
