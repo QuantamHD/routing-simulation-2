@@ -20,6 +20,18 @@ public class Node{
       return null;
    }
    
+   public void initFingerTable(Node nPrime){
+   
+   }
+   
+   public void updateOthers(){
+   
+   }
+   
+   public void updateFingerTable(Node s, int i){
+   
+   }
+   
    public Node findPredecesor(ID iden){
       return null;
    }
@@ -32,8 +44,13 @@ public class Node{
    
    }
    
+   public void notify(Node nPrime){
    
+   }
    
+   public void fixFingers(){
+   
+   }
    
    
 }
