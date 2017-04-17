@@ -39,6 +39,15 @@ public class Node{
    
    }
    
+   public Node findPredecesor(ID iden){
+      return null;
+   }
+   
+   public Node findClosestPrecedingFinger(ID iden){
+      return null;
+   }
+   
+   // Ethan
    public void updateOthers(){
    
    }
@@ -47,13 +56,8 @@ public class Node{
    
    }
    
-   public Node findPredecesor(ID iden){
-      return null;
-   }
    
-   public Node findClosestPrecedingFinger(ID iden){
-      return null;
-   }
+   // Harvey
    
    public void stabilize(){
    
