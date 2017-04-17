@@ -3,16 +3,31 @@ import java.util.ArrayList;
 public class Node{
    final byte[] ip;
    final ID identifier;
-   Node predecessor;
-   ArrayList<Node> fingers;
+   Node pred;
+   Node[] fingers;
+   Boolean online;
    
    Node(byte[] ip){
       this.ip = ip;
       identifier = new ID(ip);
-      fingers = new ArrayList<Node>();
+      fingers = new Node[160];
+      online = false;
    }
    
    public void join(Node nPrime){
+      online = true;
+      if(nPrime != null){
+         initFingerTable(nPrime);
+         updateOthers();
+      }else{
+         pred = this;
+         for(int i = 0; i < fingers.length; i++)
+            fingers[i] = this;
+      }
+   }
+   
+   public void leave(){
+      online = false;
       
    }
    
