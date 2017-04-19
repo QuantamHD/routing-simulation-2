@@ -9,11 +9,13 @@ public class Node{
    
    Node(byte[] ip){
       this.ip = ip;
+      pred = null;
       identifier = new ID(ip);
       fingers = new Node[160];
       online = false;
    }
-   
+     
+   // Evan
    public void join(Node nPrime){
       online = true;
       if(nPrime != null){
@@ -31,20 +33,37 @@ public class Node{
       
    }
    
-   public Node findSucessor(ID iden){
-      return null;
+   public void initFingerTable(Node nPrime){
+      
    }
    
-   public void initFingerTable(Node nPrime){
-   
+   public Node findSucessor(ID iden){
+      if(this == this.fingers[0]) // if there's only one node
+         return this;
+      else
+         return findPredecesor(iden).fingers[0];
    }
    
    public Node findPredecesor(ID iden){
-      return null;
+      Node nPrime = this;
+      
+      // id not in (nPrime.id, nPrime.sucessor.id]
+      while( !(iden.compareTo(nPrime.identifier) > 0 
+            && iden.compareTo(nPrime.fingers[0].identifier) <= 0) ){
+         nPrime = nPrime.findClosestPrecedingFinger(iden);
+      }
+      return nPrime;
    }
    
    public Node findClosestPrecedingFinger(ID iden){
-      return null;
+      for(int i = fingers.length - 1; i >= 0; i++){
+         // fingers[i].id in (this.id, iden)
+         if(  this.fingers[i].identifier.compareTo(this.identifier) > 0
+              && this.fingers[i].identifier.compareTo(iden) < 0)
+            return this.fingers[i];
+
+      }
+      return this;
    }
    
    // Ethan
