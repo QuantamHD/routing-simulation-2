@@ -33,11 +33,23 @@ public class Node{
    
    public void leave(){
       online = false;
-      
    }
    
    public void initFingerTable(Node nPrime){
-      
+      fingers[0] = nPrime.findSucessor(this.identifier);
+      pred = fingers[0].pred;
+      fingers[0].pred = this;
+      for(int i = 0; i < fingers.length - 1; i++){
+         // if the next finger is between this and the previous finger
+         // then we just set it to the last finger. Will leave this optimization
+         // commented for now
+         /* if(pred.fingers[i + 1].identifier.compareTo(this.identifier) >= 0 &&
+            pred.fingers[i + 1].identifier.compareTo(fingers[i].identifier) < 0)
+            fingers[i + 1] = fingers[i];
+            else*/
+            fingers[i + 1] = 
+               nPrime.findPredecesor(pred.fingers[i + 1].identifier);
+         }
    }
    
    public Node findSucessor(ID iden){
