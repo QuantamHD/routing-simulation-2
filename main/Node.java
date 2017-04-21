@@ -79,11 +79,19 @@ public class Node{
    // Harvey
    
    public void stabilize(){
-   
+	   if (online == true){
+		   Node p = this.fingers[0].pred;
+		   if (p.online && p.pred == this){
+			   this.fingers[0] = p;
+		   }
+		   this.fingers[0].notify(this);
+	   }
    }
    
    public void notify(Node nPrime){
-   
+	   if (online == true){
+		   
+	   }
    }
    
    public void fixFingers(){
