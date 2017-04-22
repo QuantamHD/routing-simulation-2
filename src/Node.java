@@ -83,7 +83,7 @@ public class Node{
    
    // Ethan
    public void updateOthers(){
-   
+
    }
    
    public void updateFingerTable(Node s, int i){
