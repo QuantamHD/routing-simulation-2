@@ -105,13 +105,16 @@ public class Node {
     }
 
     public void notify(Node nPrime) {
-        if (online == true) {
-
+        if (online && (!pred.online || pred != nPrime)) {
+        	pred = nPrime;
         }
     }
 
     public void fixFingers() {
-
+    	fingers[0].findSucessor(this.identifier);
+    	for (int i = 1; i < fingers.length; i++){
+    		fingers[i] = fingers[i-1].findSucessor(fingers[i-1].identifier);  
+    	}
     }
 
 
