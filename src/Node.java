@@ -111,11 +111,19 @@ public class Node {
     }
 
     public void fixFingers() {
-    	fingers[0].findSucessor(this.identifier);
-    	for (int i = 1; i < fingers.length; i++){
-    		fingers[i] = fingers[i-1].findSucessor(fingers[i-1].identifier);  
+    	while (!fingers[0].online){
+			fingers[0] = fingers[0].findSucessor(fingers[0].identifier);
+    	}
+		for (int i=1; i < fingers.length; i++){
+    		if (!fingers[i].online){
+    			/*
+    			 * runs until an online node has been found, 
+    			 * and there arent two entries of the same node in the finger table.
+    			 */
+    			while (!fingers[i].online || fingers[i] != fingers[i-1]){
+    				fingers[i] = fingers[i].findSucessor(fingers[i].identifier);
+    			}
+    		}
     	}
     }
-
-
 }
