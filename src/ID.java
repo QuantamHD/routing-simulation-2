@@ -19,11 +19,18 @@ public class ID implements Comparable<ID>{
         }catch(NoSuchAlgorithmException e){
             e.printStackTrace();
         }
-
+    }
+    
+    private ID(BigInteger id){
+      this.id = id;
     }
 
     public int compareTo(ID other){
       return id.compareTo(other.id);
+    }
+    
+    public ID createNew(BigInteger offset){
+      return new ID(this.id.subtract(offset));
     }
 
 }
