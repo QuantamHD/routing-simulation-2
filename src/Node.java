@@ -3,6 +3,7 @@
  */
 
 import java.util.ArrayList;
+import java.math.BigInteger;
 
 public class Node {
     final byte[] ip;
@@ -84,7 +85,14 @@ public class Node {
 
     // Ethan
     public void updateOthers() {
-
+        BigInteger base = BigInteger.valueOf(2);
+        for(int i = 0; i < fingers.length; i++){
+            // p = predecessor(this.ID - 2^i)
+            Node p = 
+            findPredecesor(this.identifier.
+                            createNew(base.pow(i)));
+            p.updateFingerTable(this, i);
+        }
     }
 
     public void updateFingerTable(Node s, int i) {
