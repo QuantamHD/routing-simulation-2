@@ -50,7 +50,7 @@ public class Node {
             fingers[i + 1] = fingers[i];
             else*/
             fingers[i + 1] =
-                    nPrime.findPredecesor(pred.fingers[i + 1].identifier);
+                    nPrime.findPredecessor(pred.fingers[i + 1].identifier);
         }
     }
 
@@ -58,10 +58,10 @@ public class Node {
         if (this == this.fingers[0]) // if there's only one node
             return this;
         else
-            return findPredecesor(iden).fingers[0];
+            return findPredecessor(iden).fingers[0];
     }
 
-    public Node findPredecesor(ID iden) {
+    public Node findPredecessor(ID iden) {
         Node nPrime = this;
 
         // id not in (nPrime.id, nPrime.sucessor.id]
@@ -89,14 +89,21 @@ public class Node {
         for(int i = 0; i < fingers.length; i++){
             // p = predecessor(this.ID - 2^i)
             Node p = 
-            findPredecesor(this.identifier.
+            findPredecessor(this.identifier.
                             createNew(base.pow(i)));
             p.updateFingerTable(this, i);
         }
     }
 
     public void updateFingerTable(Node s, int i) {
-
+        // s in range [this, finger[i]))
+        if(s.identifier.compareTo(this.identifier) >= 0 &&
+           s.identifier.compareTo(fingers[i].identifier) < 0){
+            // A little different from paper
+            fingers[i] = findPredecessor(fingers[i].identifier);
+            Node p = pred;
+            p.updateFingerTable(s, i);
+        }
     }
 
 
