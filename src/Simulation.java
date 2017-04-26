@@ -12,7 +12,10 @@ public class Simulation{
    }
    
    public void stabilize(){
-      
+      for(int i = 0; i < actives.size(); i++){
+    	  actives.get(i).stabilize();
+    	  actives.get(i).fixFingers();
+      }
    }
    
    public void addNode(boolean newNode){
@@ -20,6 +23,7 @@ public class Simulation{
    }
    
    public void removeNode(){
+<<<<<<< HEAD
       String input = JOptionPane.showInputDialog("What Node Should Be Removed?");
       try{
          int index = Integer.parseInt(input);
@@ -34,5 +38,8 @@ public class Simulation{
          JOptionPane.showMessageDialog(null, "That is not an integer", 
                                        "Alert", JOptionPane.ERROR_MESSAGE);
       }
+=======
+	   
+>>>>>>> origin/master
    }
 }
