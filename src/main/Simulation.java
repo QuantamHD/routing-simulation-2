@@ -12,18 +12,25 @@ public class Simulation{
       actives = new HashMap<Integer, Node>();
       deactives = new HashMap<Integer, Node>();
    }
-   
+   /**
+    * calls stabilize and fixFingers on each active node in the network
+    */
    public void stabilize(){
       for(int i = 0; i < actives.size(); i++){
     	  actives.get(i).stabilize();
     	  actives.get(i).fixFingers();
       }
    }
-   
+   /**
+    * adds a new node to the "network"
+    * @param newNode specifies if the node will be active or inactive
+    */
    public void addNode(boolean newNode){
       
    }
-   
+   /**
+    * removes a node from the "network"
+    */
    public void removeNode(){
       String input = JOptionPane.showInputDialog("What Node Should Be Removed?");
       try{
