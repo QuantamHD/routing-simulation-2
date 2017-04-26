@@ -23,7 +23,6 @@ public class Simulation{
    }
    
    public void removeNode(){
-<<<<<<< HEAD
       String input = JOptionPane.showInputDialog("What Node Should Be Removed?");
       try{
          int index = Integer.parseInt(input);
@@ -38,8 +37,5 @@ public class Simulation{
          JOptionPane.showMessageDialog(null, "That is not an integer", 
                                        "Alert", JOptionPane.ERROR_MESSAGE);
       }
-=======
-	   
->>>>>>> origin/master
    }
 }
