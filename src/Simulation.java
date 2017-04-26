@@ -14,10 +14,10 @@ public class Simulation{
    }
    
    public void addNode(boolean newNode){
-   
+      
    }
    
-   public void removeNode(int id){
+   public void removeNode(){
    
    }
 }
