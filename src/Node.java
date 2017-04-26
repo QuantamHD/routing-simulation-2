@@ -22,6 +22,7 @@ public class Node {
 
     // Evan
     public void join(Node nPrime) {
+        pred = null;
         online = true;
         if (nPrime != null) {
             initFingerTable(nPrime);
