@@ -13,11 +13,11 @@ public class Simulation{
       
    }
    
-   public void addNode(){
+   public void addNode(boolean newNode){
    
    }
    
-   public void removeNode(){
+   public void removeNode(int id){
    
    }
 }
