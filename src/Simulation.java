@@ -10,7 +10,10 @@ public class Simulation{
    }
    
    public void stabilize(){
-      
+      for(int i = 0; i < actives.size(); i++){
+    	  actives.get(i).stabilize();
+    	  actives.get(i).fixFingers();
+      }
    }
    
    public void addNode(boolean newNode){
