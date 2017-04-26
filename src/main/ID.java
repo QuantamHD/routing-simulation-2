@@ -1,3 +1,5 @@
+package main;
+
 import java.lang.Comparable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -63,7 +65,7 @@ public class ID implements Comparable<ID>{
      * This function will return this ID's relative postion in the keyspace i.e. a value close to 2^160 for the id
      * portion will return a double close to 1 where as an id close to zero will return 0. We can think of this
      * method as returning how close the ID of this class is to 2^160.
-     * 
+     *
      * @return - Double percentage.
      */
     public double getPercentage(){
