@@ -1,13 +1,23 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Simulation{
-   ArrayList<Node> nodes;
+   HashMap<Integer, Node> actives;
+   HashMap<Integer, Node> deactives;
    
    Simulation(){
-      nodes = new ArrayList<Node>();
+      actives = new HashMap<Integer, Node>();
+      deactives = new HashMap<Integer, Node>();
    }
    
    public void stabilize(){
       
+   }
+   
+   public void addNode(){
+   
+   }
+   
+   public void removeNode(){
+   
    }
 }
