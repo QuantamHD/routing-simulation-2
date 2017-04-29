@@ -119,7 +119,7 @@ public class Node {
         if (online == true) {
             Node x = this.fingers[0].pred;
             // x in range (this, fingers[0])
-            if(x.identifier.inRange(this.identifier, fingers[0].identifier, 0, 0)){
+            if(x.identifier.inRange(this.identifier, fingers[0].identifier, false, false)){
                 this.fingers[0] = x;
             }
             this.fingers[0].notify(this);
@@ -130,7 +130,7 @@ public class Node {
         if (online)
             // nPrime in range (pred, this)
             if (!pred.online || pred == null ||
-                    nPrime.identifier.inRange(pred.identifier, this.identifier, 0, 0)) {
+                    nPrime.identifier.inRange(pred.identifier, this.identifier, false, false)) {
                 pred = nPrime;
             }
     }
