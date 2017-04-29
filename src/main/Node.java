@@ -119,7 +119,7 @@ public class Node {
 
     public void stabilize() {
         if (online == true) {
-            fingers[0].findSucessor(identifier);
+            fingers[0] = findSucessor(identifier);
             Node x = this.fingers[0].pred;
             // x in range (this, fingers[0])
             if(x.identifier.inRange(this.identifier, fingers[0].identifier, false, false)){
@@ -154,7 +154,7 @@ public class Node {
     @Override
     public String toString() {
         return "Node{" +
-                "ip=" + Arrays.toString(ip) +
+                "pred = " + pred +
                 ", Location= " + identifier.getPercentage() +
                 ", identifier=" + identifier +
                 // ", pred=" + pred +
