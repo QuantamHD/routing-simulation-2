@@ -3,6 +3,7 @@ package main;/*
  */
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 public class Node {
     final byte[] ip;
@@ -145,6 +146,14 @@ public class Node {
     	}
     }
 
-
-    
+    @Override
+    public String toString() {
+        return "Node{" +
+                "ip=" + Arrays.toString(ip) +
+                ", identifier=" + identifier +
+                ", pred=" + pred +
+                ", fingers=" + Arrays.toString(fingers) +
+                ", online=" + online +
+                '}';
+    }
 }
