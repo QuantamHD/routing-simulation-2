@@ -73,6 +73,7 @@ public class ID implements Comparable<ID> {
         BigDecimal percentage = currentKey.divide(KEY_SPACE_SIZE, 30, BigDecimal.ROUND_HALF_DOWN);
         return percentage.doubleValue();
     }
+    
     public boolean inRange(BigInteger lower, BigInteger upper, BigInteger offset1, BigInteger offset2){
         lower = lower.add(offset1);
         upper = upper.add(offset2);

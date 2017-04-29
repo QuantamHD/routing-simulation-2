@@ -42,6 +42,8 @@ public class Node {
         fingers[0] = nPrime.findSucessor(this.identifier);
         pred = fingers[0].pred;
         fingers[0].pred = this;
+        if(fingers[0].fingers[0] == fingers[0])
+            fingers[0].fingers[0] = this;
         //this.fingers = fingers.clone();
         for (int i = 1; i < fingers.length; i++) {
             // if the next finger is between this and the previous finger
