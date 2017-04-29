@@ -42,18 +42,18 @@ public class Node {
         fingers[0] = nPrime.findSucessor(this.identifier);
         pred = fingers[0].pred;
         fingers[0].pred = this;
-        this.fingers = nPrime.fingers.clone();
-        for (int i = 0; i < fingers.length - 1; i++) {
+        //this.fingers = fingers.clone();
+        for (int i = 1; i < fingers.length; i++) {
             // if the next finger is between this and the previous finger
             // then we just set it to the last finger. Will leave this optimization
             // commented for now
-        	if(fingers[i + 1].identifier.compareTo(this.identifier) >= 0 &&
+        	/*if(fingers[i + 1].identifier.compareTo(this.identifier) >= 0 &&
         			fingers[i + 1].identifier.compareTo(fingers[i].identifier) < 0)
         		fingers[i + 1] = fingers[i];
-            else{
-            	fingers[i + 1] =
-                    nPrime.findPredecessor(fingers[i + 1].identifier);
-            }
+            else*/
+            	fingers[i] =
+                    nPrime.findPredecessor(fingers[0].fingers[i].identifier);
+            
         }
     }
 
