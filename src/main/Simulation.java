@@ -154,9 +154,9 @@ public class Simulation {
      * calls stabilize and fixFingers on each active node in the network
      */
     public void stabilize() {
-        for (int i = 0; i < actives.size(); i++) {
-            actives.get(i).stabilize();
-            actives.get(i).fixFingers();
+        for (Map.Entry<Integer, Node> entry : this.actives.entrySet()) {
+            entry.getValue().stabilize();
+            entry.getValue().fixFingers();
         }
     }
 
