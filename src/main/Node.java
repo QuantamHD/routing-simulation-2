@@ -119,6 +119,7 @@ public class Node {
 
     public void stabilize() {
         if (online == true) {
+            fingers[0].findSucessor(identifier);
             Node x = this.fingers[0].pred;
             // x in range (this, fingers[0])
             if(x.identifier.inRange(this.identifier, fingers[0].identifier, false, false)){
