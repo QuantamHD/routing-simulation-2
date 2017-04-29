@@ -92,7 +92,6 @@ public class Node {
         return this;
     }
 
-    // Ethan
     public void updateOthers() {
         BigInteger base = BigInteger.valueOf(2);
         for (int i = 1; i < fingers.length; i++) {
@@ -108,7 +107,7 @@ public class Node {
         // s in range [this, finger[i]))
         if (s.identifier.inRange(this.identifier, this.fingers[i].identifier, true, false) ){
             // A little different from paper
-            fingers[i] = findPredecessor(fingers[i].identifier);
+            fingers[i] = s;//findPredecessor(fingers[i].identifier);
             Node p = pred;
             p.updateFingerTable(s, i);
         }
