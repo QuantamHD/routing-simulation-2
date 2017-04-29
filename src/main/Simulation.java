@@ -24,15 +24,19 @@ public class Simulation {
         do {
             // output
             System.out.println("\nWhat would you like to do?");
-            System.out.println("'a':  Add a Node");
-            System.out.println("'a1': Add a previously removed Node");
-            System.out.println("'r':  Remove a Node");
-            System.out.println("'d':  Go to display options");
-            System.out.println("'q':  Quit");
+            System.out.println("'o':  options");
             str = in.nextLine();
 
+            // options
+            if (str.equals("o")){
+               System.out.println("'a':  Add a Node");
+               System.out.println("'a1': Add a previously removed Node");
+               System.out.println("'r':  Remove a Node");
+               System.out.println("'d':  Go to display options");
+               System.out.println("'q':  Quit");
+               
             // add
-            if (str.equals("a")) {
+            } else if (str.equals("a")) {
                 s.addNode(true);
                 System.out.println("Node added");
 
@@ -65,15 +69,19 @@ public class Simulation {
         String str;
         do {
             System.out.println("\nDisplay menu");
-            System.out.println("'d':  Nodes and thier numbers");
-            System.out.println("'df': Display Nodes, thier numbers and thier fingers");
-            System.out.println("'f':  Get the fingers for a particular node");
-            System.out.println("'r':  Get the deactivated nodes and thier numbers");
-            System.out.println("'L':  Leave display options");
+            System.out.println("'o':  options");
             str = in.nextLine();
 
+            // options
+            if (str.equals("o")){
+               System.out.println("'d':  Nodes and thier numbers");
+               System.out.println("'df': Display Nodes, thier numbers and thier fingers");
+               System.out.println("'f':  Get the fingers for a particular node");
+               System.out.println("'r':  Get the deactivated nodes and thier numbers");
+               System.out.println("'L':  Leave display options");
+               
             // Display
-            if (str.equals("d")) {
+            } else if (str.equals("d")) {
                 for (Map.Entry<Integer, Node> entry : s.actives.entrySet()) {
                     System.out.println("Key = " + entry.getKey() + ", Node = " + entry.getValue());
                 }
