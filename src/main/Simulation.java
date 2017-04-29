@@ -94,14 +94,19 @@ public class Simulation {
 
                     System.out.println("Key = " + entry.getKey() + ", Node = " + entry.getValue());
                     System.out.println("Fingers are:");
-                    for (int i = 0; i < current.fingers.length; i++) {
-                        if(i != 0 && current.fingers[i - 1] != current.fingers[i]){
+                    System.out.print("\tIndex : 0, is node : ");
+                    if (current.fingers[0] == current) 
+                        System.out.println("Itself");
+                    else
+                     System.out.println(current.fingers[0]);
+                    
+                    for (int i = 1; i < current.fingers.length; i++) {
+                        if(current.fingers[i - 1] != current.fingers[i]){
                            System.out.print("\tIndex : " + i + ", is node : ");
-                           if (current.fingers[i] == current) {
+                           if (current.fingers[i] == current) 
                               System.out.println("Itself");
-                              continue;
-                           }
-                           System.out.println(current.fingers[i]);
+                           else
+                              System.out.println(current.fingers[i]);
                         }
                     }
                 }

@@ -90,7 +90,7 @@ public class Node {
     // Ethan
     public void updateOthers() {
         BigInteger base = BigInteger.valueOf(2);
-        for (int i = 0; i < fingers.length; i++) {
+        for (int i = 1; i < fingers.length; i++) {
             // p = predecessor(this.ID - 2^i)
             Node p =
                     findPredecessor(this.identifier.
