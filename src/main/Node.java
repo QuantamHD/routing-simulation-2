@@ -153,6 +153,7 @@ public class Node {
     public String toString() {
         return "Node{" +
                 "ip=" + Arrays.toString(ip) +
+                ", Location= " + identifier.getPercentage() +
                 ", identifier=" + identifier +
                 // ", pred=" + pred +
                 // ", fingers=" + Arrays.toString(fingers) +
