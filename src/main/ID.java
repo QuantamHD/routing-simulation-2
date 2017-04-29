@@ -1,4 +1,4 @@
-package src.main;
+package main;
 
 import java.lang.Comparable;
 import java.math.BigDecimal;
