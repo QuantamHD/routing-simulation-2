@@ -33,6 +33,7 @@ public class Simulation {
                System.out.println("'a1': Add a previously removed Node");
                System.out.println("'r':  Remove a Node");
                System.out.println("'d':  Go to display options");
+               System.out.println("'s':  Stabilize and fix fingers");
                System.out.println("'q':  Quit");
                
             // add
@@ -56,8 +57,14 @@ public class Simulation {
 
                     s.removeNode();
                 }
-
-                // enter display options
+                
+            
+            // Stabilize
+            } else if (str.equals("s")){
+               s.stabilize();
+               
+               
+            // enter display options
             } else if (str.equals("d")) {
                 displayMode(s, in);
             }
