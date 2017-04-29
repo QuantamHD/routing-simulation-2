@@ -84,17 +84,19 @@ public class ID implements Comparable<ID> {
      * @param offset2
      * @return
      */
-    public boolean inRange(BigInteger lower, BigInteger upper, int offset1, int offset2){
-        lower = lower.add(BigInteger.valueOf(offset1));
-        upper = upper.add(BigInteger.valueOf(offset2));
-        if (lower.compareTo(upper) < 0){
-            if (id.compareTo(lower) > 0 && id.compareTo(upper) < 0)
+    public boolean inRange(ID lower, ID upper, int offset1, int offset2){
+        BigInteger l = lower.id;
+        BigInteger u = upper.id;
+        l = l.add(BigInteger.valueOf(offset1));
+        u = u.add(BigInteger.valueOf(offset2));
+        if (l.compareTo(u) < 0){
+            if (id.compareTo(l) > 0 && id.compareTo(u) < 0)
                 return true;
             else
                 return false;
         }
         else{
-            if (id.compareTo(lower) > 0 || id.compareTo(upper) < 0)
+            if (id.compareTo(l) > 0 || id.compareTo(u) < 0)
                 return true;
             else
                 return false;

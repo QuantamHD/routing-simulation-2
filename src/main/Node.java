@@ -119,8 +119,7 @@ public class Node {
         if (online == true) {
             Node x = this.fingers[0].pred;
             // x in range (this, fingers[0])
-            if (x.identifier.compareTo(this.identifier) > 0 &&
-                    x.identifier.compareTo(fingers[0].identifier) < 0) {
+            if(x.identifier.inRange(this.identifier, fingers[0].identifier, 0, 0)){
                 this.fingers[0] = x;
             }
             this.fingers[0].notify(this);
@@ -131,12 +130,10 @@ public class Node {
         if (online)
             // nPrime in range (pred, this)
             if (!pred.online || pred == null ||
-                    nPrime.identifier.compareTo(pred.identifier) > 0 &&
-                            nPrime.identifier.compareTo(this.identifier) < 0) {
+                    nPrime.identifier.inRange(pred.identifier, this.identifier, 0, 0)) {
                 pred = nPrime;
             }
     }
-
     public void fixFingers() {
         for (int i = 1; i < fingers.length; i++) {
             if (!fingers[i].online) {
