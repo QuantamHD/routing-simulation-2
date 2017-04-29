@@ -99,7 +99,7 @@ public class Simulation {
                 for (Map.Entry<Integer, Node> entry : s.actives.entrySet()) {
                     current = entry.getValue();
 
-                    System.out.println("Key = " + entry.getKey() + ", Node = " + entry.getValue());
+                    System.out.println("\nKey = " + entry.getKey() + ", Node = " + entry.getValue());
                     System.out.println("Fingers are:");
                     System.out.print("\tIndex : 0, is node : ");
                     if (current.fingers[0] == current) 
