@@ -73,7 +73,7 @@ public class Node {
     }
 
     public Node findClosestPrecedingFinger(ID iden) {
-        for (int i = fingers.length - 1; i >= 0; i++) {
+        for (int i = fingers.length - 1; i >= 0; i--) {
             // fingers[i].id in (this.id, iden)
             if (this.fingers[i].identifier.compareTo(this.identifier) > 0
                     && this.fingers[i].identifier.compareTo(iden) < 0)
