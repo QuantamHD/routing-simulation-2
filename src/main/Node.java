@@ -46,12 +46,13 @@ public class Node {
             // if the next finger is between this and the previous finger
             // then we just set it to the last finger. Will leave this optimization
             // commented for now
-         /* if(pred.fingers[i + 1].identifier.compareTo(this.identifier) >= 0 &&
-            pred.fingers[i + 1].identifier.compareTo(fingers[i].identifier) < 0)
-            fingers[i + 1] = fingers[i];
-            else*/
-            fingers[i + 1] =
-                    nPrime.findPredecessor(pred.fingers[i + 1].identifier);
+        	if(fingers[i + 1].identifier.compareTo(this.identifier) >= 0 &&
+        			fingers[i + 1].identifier.compareTo(fingers[i].identifier) < 0)
+        		fingers[i + 1] = fingers[i];
+            else{
+            	fingers[i + 1] =
+                    nPrime.findPredecessor(fingers[i + 1].identifier);
+            }
         }
     }
 
