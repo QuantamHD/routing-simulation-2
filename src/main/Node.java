@@ -1,4 +1,5 @@
-package main;/*
+package main;
+/*
  * https://pdos.csail.mit.edu/papers/chord:sigcomm01/chord_sigcomm.pdf
  */
 
@@ -69,7 +70,10 @@ public class Node {
         Node oldPrime = this;
 
         // id not in (nPrime.id, nPrime.sucessor.id]
-        while (!(iden.compareTo(nPrime.identifier) > 0 && iden.compareTo(nPrime.fingers[0].identifier) <= 0)) {
+        while (!iden.inRange(nPrime.identifier, 
+               nPrime.fingers[0].identifier, 
+               false, true)) {
+               
             nPrime = nPrime.findClosestPrecedingFinger(iden);
             if(nPrime == oldPrime)
                break;
@@ -81,8 +85,7 @@ public class Node {
     public Node findClosestPrecedingFinger(ID iden) {
         for (int i = fingers.length - 1; i >= 0; i--) {
             // fingers[i].id in (this.id, iden)
-            if (this.fingers[i].identifier.compareTo(this.identifier) > 0
-                    && this.fingers[i].identifier.compareTo(iden) < 0)
+            if (!fingers[i].identifier.inRange(this.identifier, iden, false, false))
                 return this.fingers[i];
 
         }
@@ -103,8 +106,7 @@ public class Node {
 
     public void updateFingerTable(Node s, int i) {
         // s in range [this, finger[i]))
-        if (s.identifier.compareTo(this.identifier) >= 0 &&
-                s.identifier.compareTo(fingers[i].identifier) < 0) {
+        if (s.identifier.inRange(this.identifier, this.fingers[i].identifier, true, false) ){
             // A little different from paper
             fingers[i] = findPredecessor(fingers[i].identifier);
             Node p = pred;
