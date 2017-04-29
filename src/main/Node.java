@@ -154,9 +154,9 @@ public class Node {
     @Override
     public String toString() {
         return "Node{" +
-                "pred = " + pred +
                 ", Location= " + identifier.getPercentage() +
-                ", identifier=" + identifier +
+                "pred = " + pred +
+                //", identifier=" + identifier +
                 // ", pred=" + pred +
                 // ", fingers=" + Arrays.toString(fingers) +
                 ", online=" + online +
