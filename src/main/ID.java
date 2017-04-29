@@ -6,7 +6,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class ID implements Comparable<ID>{
+public class ID implements Comparable<ID> {
     private BigInteger id;
     private static final BigDecimal KEY_SPACE_SIZE;
 
@@ -16,11 +16,11 @@ public class ID implements Comparable<ID>{
      * the max value of 160 unsigned bits.
      */
     static {
-        KEY_SPACE_SIZE = new BigDecimal(new BigInteger(1,new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF}));
+        KEY_SPACE_SIZE = new BigDecimal(new BigInteger(1, new byte[]{
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF}));
     }
 
     /**
@@ -29,7 +29,7 @@ public class ID implements Comparable<ID>{
      *
      * @param ip - The byte representation of the ip address.
      */
-    ID(byte[] ip){
+    ID(byte[] ip) {
         //does the SHA
         MessageDigest md = null;
         try {
@@ -38,13 +38,13 @@ public class ID implements Comparable<ID>{
             md.update(ip);
             byte[] hash = md.digest();
             this.id = new BigInteger(1, hash);
-        }catch(NoSuchAlgorithmException e){
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
     }
-    
-    private ID(BigInteger id){
-      this.id = id;
+
+    private ID(BigInteger id) {
+        this.id = id;
     }
 
     /**
@@ -53,12 +53,12 @@ public class ID implements Comparable<ID>{
      * @param other
      * @return
      */
-    public int compareTo(ID other){
-      return id.compareTo(other.id);
+    public int compareTo(ID other) {
+        return id.compareTo(other.id);
     }
-    
-    public ID createNew(BigInteger offset){
-      return new ID(this.id.subtract(offset));
+
+    public ID createNew(BigInteger offset) {
+        return new ID(this.id.subtract(offset));
     }
 
     /**
@@ -68,9 +68,9 @@ public class ID implements Comparable<ID>{
      *
      * @return - Double percentage.
      */
-    public double getPercentage(){
+    public double getPercentage() {
         BigDecimal currentKey = new BigDecimal(id);
-        BigDecimal percentage = currentKey.divide(KEY_SPACE_SIZE,30, BigDecimal.ROUND_HALF_DOWN);
+        BigDecimal percentage = currentKey.divide(KEY_SPACE_SIZE, 30, BigDecimal.ROUND_HALF_DOWN);
         return percentage.doubleValue();
     }
 }

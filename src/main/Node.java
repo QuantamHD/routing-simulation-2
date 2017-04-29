@@ -66,8 +66,7 @@ public class Node {
         Node nPrime = this;
 
         // id not in (nPrime.id, nPrime.sucessor.id]
-        while (!(iden.compareTo(nPrime.identifier) > 0
-                && iden.compareTo(nPrime.fingers[0].identifier) <= 0)) {
+        while (!(iden.compareTo(nPrime.identifier) > 0 && iden.compareTo(nPrime.fingers[0].identifier) <= 0)) {
             nPrime = nPrime.findClosestPrecedingFinger(iden);
         }
         return nPrime;
@@ -87,10 +86,10 @@ public class Node {
     // Ethan
     public void updateOthers() {
         BigInteger base = BigInteger.valueOf(2);
-        for(int i = 0; i < fingers.length; i++){
+        for (int i = 0; i < fingers.length; i++) {
             // p = predecessor(this.ID - 2^i)
-            Node p = 
-            findPredecessor(this.identifier.
+            Node p =
+                    findPredecessor(this.identifier.
                             createNew(base.pow(i)));
             p.updateFingerTable(this, i);
         }
@@ -98,8 +97,8 @@ public class Node {
 
     public void updateFingerTable(Node s, int i) {
         // s in range [this, finger[i]))
-        if(s.identifier.compareTo(this.identifier) >= 0 &&
-           s.identifier.compareTo(fingers[i].identifier) < 0){
+        if (s.identifier.compareTo(this.identifier) >= 0 &&
+                s.identifier.compareTo(fingers[i].identifier) < 0) {
             // A little different from paper
             fingers[i] = findPredecessor(fingers[i].identifier);
             Node p = pred;
@@ -114,8 +113,8 @@ public class Node {
         if (online == true) {
             Node x = this.fingers[0].pred;
             // x in range (this, fingers[0])
-            if  (x.identifier.compareTo(this.identifier) > 0 &&
-                 x.identifier.compareTo(fingers[0].identifier) < 0) {
+            if (x.identifier.compareTo(this.identifier) > 0 &&
+                    x.identifier.compareTo(fingers[0].identifier) < 0) {
                 this.fingers[0] = x;
             }
             this.fingers[0].notify(this);
@@ -124,26 +123,26 @@ public class Node {
 
     public void notify(Node nPrime) {
         if (online)
-             // nPrime in range (pred, this)
-             if(!pred.online || pred == null ||
-                nPrime.identifier.compareTo(pred.identifier) > 0 &&
-                nPrime.identifier.compareTo(this.identifier) < 0) {
-        	         pred = nPrime;
-        }
+            // nPrime in range (pred, this)
+            if (!pred.online || pred == null ||
+                    nPrime.identifier.compareTo(pred.identifier) > 0 &&
+                            nPrime.identifier.compareTo(this.identifier) < 0) {
+                pred = nPrime;
+            }
     }
 
     public void fixFingers() {
-		for (int i=1; i < fingers.length; i++){
-    		if (!fingers[i].online){
-    			/*
+        for (int i = 1; i < fingers.length; i++) {
+            if (!fingers[i].online) {
+                /*
     			 * runs until an online node has been found, 
     			 * and there arent two entries of the same node in the finger table.
     			 */
-    			while (!fingers[i].online && fingers[i] != fingers[i-1]){
-    				fingers[i] = fingers[i].findSucessor(fingers[i].identifier);
-    			}
-    		}
-    	}
+                while (!fingers[i].online && fingers[i] != fingers[i - 1]) {
+                    fingers[i] = fingers[i].findSucessor(fingers[i].identifier);
+                }
+            }
+        }
     }
 
     @Override
