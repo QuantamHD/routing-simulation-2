@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.Arrays;
+import java.util.Map;
 
 public class Simulation{
    HashMap<Integer, Node> actives;
@@ -22,6 +23,7 @@ public class Simulation{
          System.out.println("'a1': Add a previously removed Node");
          System.out.println("'r':  Remove a Node");
          System.out.println("'d':  Go to display options");
+         System.out.println("'q':  Quit");
          str = in.nextLine();
          
          // add
@@ -55,7 +57,64 @@ public class Simulation{
    
    // For error checking a simulation
    public static void displayMode(Simulation s, Scanner in){
-   
+      String str;
+      do{
+         System.out.println("\nDisplay menu");
+         System.out.println("'d':  Nodes and thier numbers");
+         System.out.println("'df': Display Nodes, thier numbers and thier fingers");
+         System.out.println("'f':  Get the fingers for a particular node");
+         System.out.println("'r':  Get the deactivated nodes and thier numbers");
+         System.out.println("'L':  Leave display options");
+         str = in.nextLine();
+         
+         // Display
+         if(str.equals("d")){
+            for(Map.Entry<Integer, Node> entry : s.actives.entrySet()){
+               System.out.println("Key = " + entry.getKey() + ", Node = " + entry.getValue());
+            }
+         
+         // Display with fingers
+         }else if(str.equals("df")){
+            Node current;
+            for(Map.Entry<Integer, Node> entry : s.actives.entrySet()){
+               current = entry.getValue();
+            
+               System.out.println("Key = " + entry.getKey() + ", Node = " + entry.getValue());
+               System.out.println("Fingers are:");
+                  for(int i = 0; i < current.fingers.length; i++){
+                     System.out.print("\tIndex : " + i + ", is node : ");
+                     if(current.fingers[i] == current){
+                        System.out.println("Itself");
+                        break;
+                     }
+                        System.out.println(current.fingers[i]);
+                  }
+            }
+         
+         // Display a finger table for a node
+         }else if(str.equals("f")){
+            System.out.println("Enter a key");
+            try{
+               int key = Integer.parseInt(in.nextLine());
+               Node current = s.actives.get(key);
+               System.out.println("Key = " + key + ", Node = " + current);
+               System.out.println("Fingers are:");
+                  for(int i = 0; i < current.fingers.length; i++){
+                     System.out.print("\tIndex : " + i + ", is node : ");
+                     System.out.println(current.fingers[i]);
+                  }
+             }catch(NumberFormatException e){
+                System.out.println("That is not an Integer");
+             }
+         
+         
+         // Display deactivated nodes
+         }else if(str.equals("r")){
+            for(Map.Entry<Integer, Node> entry : s.deactives.entrySet()){
+               System.out.println("Key = " + entry.getKey() + ", Node = " + entry.getValue());
+            }
+         }
+      }while(!str.equals("L"));
    }
    
    
