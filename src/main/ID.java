@@ -76,20 +76,22 @@ public class ID implements Comparable<ID> {
 
     /**
      * this function checks to see if the current id is in range of the lower and upper bounds.
-     * the offset1 and offset2 are int used to account for inclussive statements.
-     * if the check is exclusive, then the offsets should be set to 0
+     * the offset1 and offset2 are booleans used to account for inclussive statements.
+     * if the check is exclusive, then the offsets should be set to false
      *
      * @param lower
      * @param upper
-     * @param offset1 set to -1 for inclussive.
-     * @param offset2 set to 1 for inclussive
+     * @param offset1 set to true for inclussive.
+     * @param offset2 set to true for inclussive
      * @return
      */
-    public boolean inRange(ID lower, ID upper, int offset1, int offset2){
+    public boolean inRange(ID lower, ID upper, boolean offset1, boolean offset2){
         BigInteger l = lower.id;
         BigInteger u = upper.id;
-        l = l.add(BigInteger.valueOf(offset1));
-        u = u.add(BigInteger.valueOf(offset2));
+        if (offset1)
+            l = l.add(BigInteger.valueOf(-1));
+        if (offset2)
+            u = u.add(BigInteger.valueOf(1));
         if (l.compareTo(u) < 0){
             if (id.compareTo(l) > 0 && id.compareTo(u) < 0)
                 return true;
