@@ -73,9 +73,20 @@ public class ID implements Comparable<ID> {
         BigDecimal percentage = currentKey.divide(KEY_SPACE_SIZE, 30, BigDecimal.ROUND_HALF_DOWN);
         return percentage.doubleValue();
     }
-    public boolean inRange(BigInteger lower, BigInteger upper, BigInteger offset1, BigInteger offset2){
-        lower = lower.add(offset1);
-        upper = upper.add(offset2);
+
+    /**
+     * this function checks to see if the current id is in range of the lower and upper bounds.
+     * the offset1 and offset2 are int used to account for inclussive statements.
+     * if the check is exclusive, then the offsets should be set to 0
+     * @param lower
+     * @param upper
+     * @param offset1
+     * @param offset2
+     * @return
+     */
+    public boolean inRange(BigInteger lower, BigInteger upper, int offset1, int offset2){
+        lower = lower.add(BigInteger.valueOf(offset1));
+        upper = upper.add(BigInteger.valueOf(offset2));
         if (lower.compareTo(upper) < 0){
             if (id.compareTo(lower) > 0 && id.compareTo(upper) < 0)
                 return true;
