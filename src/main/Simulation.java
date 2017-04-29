@@ -100,6 +100,7 @@ public class Simulation {
                     current = entry.getValue();
 
                     System.out.println("\nKey = " + entry.getKey() + ", Node = " + entry.getValue());
+                    System.out.println("Pred = " + entry.getValue().pred);
                     System.out.println("Fingers are:");
                     System.out.print("\tIndex : 0, is node : ");
                     if (current.fingers[0] == current) 
@@ -125,6 +126,7 @@ public class Simulation {
                     int key = Integer.parseInt(in.nextLine());
                     Node current = s.actives.get(key);
                     System.out.println("Key = " + key + ", Node = " + current);
+                    System.out.println("Pred = " + current.pred);
                     System.out.println("Fingers are:");
                     for (int i = 0; i < current.fingers.length; i++) {
                         System.out.print("\tIndex : " + i + ", is node : ");

@@ -155,7 +155,7 @@ public class Node {
     public String toString() {
         return "Node{" +
                 ", Location= " + identifier.getPercentage() +
-                "pred = " + pred +
+                //"pred = " + pred +
                 //", identifier=" + identifier +
                 // ", pred=" + pred +
                 // ", fingers=" + Arrays.toString(fingers) +
