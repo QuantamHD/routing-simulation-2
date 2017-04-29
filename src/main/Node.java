@@ -64,10 +64,14 @@ public class Node {
 
     public Node findPredecessor(ID iden) {
         Node nPrime = this;
+        Node oldPrime = this;
 
         // id not in (nPrime.id, nPrime.sucessor.id]
         while (!(iden.compareTo(nPrime.identifier) > 0 && iden.compareTo(nPrime.fingers[0].identifier) <= 0)) {
             nPrime = nPrime.findClosestPrecedingFinger(iden);
+            if(nPrime == oldPrime)
+               break;
+            oldPrime = nPrime;
         }
         return nPrime;
     }
