@@ -154,8 +154,8 @@ public class Node {
         return "Node{" +
                 "ip=" + Arrays.toString(ip) +
                 ", identifier=" + identifier +
-                ", pred=" + pred +
-                ", fingers=" + Arrays.toString(fingers) +
+                // ", pred=" + pred +
+                // ", fingers=" + Arrays.toString(fingers) +
                 ", online=" + online +
                 '}';
     }
