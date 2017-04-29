@@ -1,4 +1,4 @@
-package main;/*
+package src.main;/*
  * https://pdos.csail.mit.edu/papers/chord:sigcomm01/chord_sigcomm.pdf
  */
 
@@ -46,12 +46,13 @@ public class Node {
             // if the next finger is between this and the previous finger
             // then we just set it to the last finger. Will leave this optimization
             // commented for now
-         /* if(pred.fingers[i + 1].identifier.compareTo(this.identifier) >= 0 &&
-            pred.fingers[i + 1].identifier.compareTo(fingers[i].identifier) < 0)
-            fingers[i + 1] = fingers[i];
-            else*/
-            fingers[i + 1] =
-                    nPrime.findPredecessor(pred.fingers[i + 1].identifier);
+        	if(fingers[i + 1].identifier.compareTo(this.identifier) >= 0 &&
+        			fingers[i + 1].identifier.compareTo(fingers[i].identifier) < 0)
+        		fingers[i + 1] = fingers[i];
+            else{
+            	fingers[i + 1] =
+                    nPrime.findPredecessor(fingers[i + 1].identifier);
+            }
         }
     }
 
@@ -64,10 +65,14 @@ public class Node {
 
     public Node findPredecessor(ID iden) {
         Node nPrime = this;
+        Node oldPrime = this;
 
         // id not in (nPrime.id, nPrime.sucessor.id]
         while (!(iden.compareTo(nPrime.identifier) > 0 && iden.compareTo(nPrime.fingers[0].identifier) <= 0)) {
             nPrime = nPrime.findClosestPrecedingFinger(iden);
+            if(nPrime == oldPrime)
+               break;
+            oldPrime = nPrime;
         }
         return nPrime;
     }
@@ -150,8 +155,8 @@ public class Node {
         return "Node{" +
                 "ip=" + Arrays.toString(ip) +
                 ", identifier=" + identifier +
-                ", pred=" + pred +
-                ", fingers=" + Arrays.toString(fingers) +
+                // ", pred=" + pred +
+                // ", fingers=" + Arrays.toString(fingers) +
                 ", online=" + online +
                 '}';
     }
