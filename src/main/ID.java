@@ -78,10 +78,11 @@ public class ID implements Comparable<ID> {
      * this function checks to see if the current id is in range of the lower and upper bounds.
      * the offset1 and offset2 are int used to account for inclussive statements.
      * if the check is exclusive, then the offsets should be set to 0
+     *
      * @param lower
      * @param upper
-     * @param offset1
-     * @param offset2
+     * @param offset1 set to -1 for inclussive.
+     * @param offset2 set to 1 for inclussive
      * @return
      */
     public boolean inRange(ID lower, ID upper, int offset1, int offset2){
