@@ -100,8 +100,7 @@ public class Node {
     public void updateFingerTable(Node s, int i) {
         // s in range [this, finger[i]))
         if (s.identifier.inRange(this.identifier, this.fingers[i].identifier, true, false) ){
-            // A little different from paper
-            fingers[i] = s;//findPredecessor(fingers[i].identifier);
+            fingers[i] = s;  //findPredecessor(fingers[i].identifier);
             Node p = pred;
             p.updateFingerTable(s, i);
         }
@@ -112,7 +111,6 @@ public class Node {
 
     public void stabilize() {
         if (online == true) {
-            fingers[0] = findSucessor(identifier);
             Node x = this.fingers[0].pred;
             // x in range (this, fingers[0])
             if(x.identifier.inRange(this.identifier, fingers[0].identifier, false, false)){
@@ -132,9 +130,8 @@ public class Node {
     }
     public void fixFingers() {
         for (int i = 1; i < fingers.length; i++) {
-            if (!fingers[i].online) {
-               fingers[i] = this.findSucessor(this.identifier.createNew(base.pow(i), true));
-
+            fingers[i] = this.findSucessor(this.identifier.createNew(base.pow(i), true));
+            
             /*
     			 * runs until an online node has been found, 
     			 * and there arent two entries of the same node in the finger table.
@@ -142,7 +139,6 @@ public class Node {
                 while (!fingers[i].online) {
                     fingers[i] = fingers[i].findSucessor(fingers[i].identifier);
                 }*/
-            }
         }
     }
 
@@ -151,7 +147,7 @@ public class Node {
         return "Node{" +
                 ", Location= " + identifier.getPercentage() +
                 //"pred = " + pred +
-                //", identifier=" + identifier +
+                ", identifier=" + identifier +
                 // ", pred=" + pred +
                 // ", fingers=" + Arrays.toString(fingers) +
                 ", online=" + online +

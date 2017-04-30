@@ -67,7 +67,9 @@ public class ID implements Comparable<ID> {
     public ID createNew(BigInteger offset, boolean toAdd) {
         ID r;
         if(toAdd){
-           if(this.id.compareTo(offset) <= 0)
+           r = new ID(this.id.add(offset));
+           if(r.id.compareTo(BigInteger.valueOf(0)) < 0)
+              // this means it overflowed
               r = new ID(offset.subtract(this.id));
            else
               r = new ID(this.id.add(offset));
