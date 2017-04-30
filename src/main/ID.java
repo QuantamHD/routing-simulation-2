@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 public class ID implements Comparable<ID> {
     private BigInteger id;
     private static final BigDecimal KEY_SPACE_SIZE;
+    private static final BigInteger MAX_ID;
 
 
     /**
@@ -16,11 +17,12 @@ public class ID implements Comparable<ID> {
      * the max value of 160 unsigned bits.
      */
     static {
-        KEY_SPACE_SIZE = new BigDecimal(new BigInteger(1, new byte[]{
+        MAX_ID = new BigInteger(1, new byte[]{
                 (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
                 (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
                 (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
-                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF}));
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF});
+        KEY_SPACE_SIZE = new BigDecimal(MAX_ID);
     }
 
     /**
@@ -58,7 +60,10 @@ public class ID implements Comparable<ID> {
     }
 
     public ID createNew(BigInteger offset) {
-        return new ID(this.id.subtract(offset));
+        ID r = new ID(this.id.subtract(offset));
+        if(r.id.compareTo(BigInteger.valueOf(0)) < 0)
+            r = new ID(MAX_ID.add(r.id));
+        return r;
     }
 
     /**
@@ -104,5 +109,10 @@ public class ID implements Comparable<ID> {
             else
                 return false;
         }
+    }
+    
+    @Override
+    public String toString(){
+      return "" + id;
     }
 }
