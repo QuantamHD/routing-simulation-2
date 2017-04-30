@@ -68,14 +68,13 @@ public class ID implements Comparable<ID> {
         ID r;
         if(toAdd){
            r = new ID(this.id.add(offset));
-           if(r.id.compareTo(BigInteger.valueOf(0)) < 0)
+           if(r.id.compareTo(MAX_ID) > 0)
               // this means it overflowed
-              r = new ID(offset.subtract(this.id));
-           else
-              r = new ID(this.id.add(offset));
+              r = new ID(r.id.subtract(MAX_ID));
         }else{
            r = new ID(this.id.subtract(offset));
            if(r.id.compareTo(BigInteger.valueOf(0)) < 0)
+               // this means it went negative
                r = new ID(MAX_ID.add(r.id));
         }
         return r;
