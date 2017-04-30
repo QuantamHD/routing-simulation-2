@@ -100,9 +100,9 @@ public class Simulation {
                     current = entry.getValue();
 
                     System.out.println("\nKey = " + entry.getKey() + ", Node = " + entry.getValue());
-                    System.out.println("Pred = " + entry.getValue().pred);
-                    System.out.println("Fingers are:");
-                    System.out.print("\tIndex : 0, is node : ");
+                    System.out.println("\tPred = " + entry.getValue().pred);
+                    System.out.println("\tFingers are:");
+                    System.out.print("\t\tIndex : 0, is node : ");
                     if (current.fingers[0] == current) 
                         System.out.println("Itself");
                     else
@@ -126,10 +126,10 @@ public class Simulation {
                     int key = Integer.parseInt(in.nextLine());
                     Node current = s.actives.get(key);
                     System.out.println("Key = " + key + ", Node = " + current);
-                    System.out.println("Pred = " + current.pred);
-                    System.out.println("Fingers are:");
+                    System.out.println("\tPred = " + current.pred);
+                    System.out.println("\tFingers are:");
                     for (int i = 0; i < current.fingers.length; i++) {
-                        System.out.print("\tIndex : " + i + ", is node : ");
+                        System.out.print("\t\tIndex : " + i + ", is node : ");
                         System.out.println(current.fingers[i]);
                     }
                 } catch (NumberFormatException e) {

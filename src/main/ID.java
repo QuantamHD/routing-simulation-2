@@ -59,6 +59,11 @@ public class ID implements Comparable<ID> {
         return id.compareTo(other.id);
     }
 
+    /**
+     * Allow you to create a new ID from a given offset and retain
+     * ciclic funtion from 0 to 2^m. True will add the offset and
+     * false will subtract the offset
+     */
     public ID createNew(BigInteger offset, boolean toAdd) {
         ID r;
         if(toAdd){
