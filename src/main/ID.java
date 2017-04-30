@@ -59,11 +59,20 @@ public class ID implements Comparable<ID> {
         return id.compareTo(other.id);
     }
 
-    public ID createNew(BigInteger offset) {
-        ID r = new ID(this.id.subtract(offset));
-        if(r.id.compareTo(BigInteger.valueOf(0)) < 0)
-            r = new ID(MAX_ID.add(r.id));
+    public ID createNew(BigInteger offset, boolean toAdd) {
+        ID r;
+        if(toAdd){
+           if(this.id.compareTo(offset) <= 0)
+              r = new ID(offset.subtract(this.id));
+           else
+              r = new ID(this.id.add(offset));
+        }else{
+           r = new ID(this.id.subtract(offset));
+           if(r.id.compareTo(BigInteger.valueOf(0)) < 0)
+               r = new ID(MAX_ID.add(r.id));
+        }
         return r;
+        
     }
 
     /**
