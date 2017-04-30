@@ -110,7 +110,7 @@ public class Simulation {
                     
                     for (int i = 1; i < current.fingers.length; i++) {
                         if(current.fingers[i - 1] != current.fingers[i]){
-                           System.out.print("\tIndex : " + i + ", is node : ");
+                           System.out.print("\t\tIndex : " + i + ", is node : ");
                            if (current.fingers[i] == current) 
                               System.out.println("Itself");
                            else
