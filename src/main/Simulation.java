@@ -157,6 +157,7 @@ public class Simulation {
      */
     public void stabilize() {
         for (Map.Entry<Integer, Node> entry : this.actives.entrySet()) {
+            //System.out.println("Fixing Node: " + entry.getValue());
             entry.getValue().stabilize();
             entry.getValue().fixFingers();
         }

@@ -50,27 +50,25 @@ public class Node {
         fingers[0].pred = this;
         if(fingers[0].fingers[0] == fingers[0])
             fingers[0].fingers[0] = this;
-        //this.fingers = fingers.clone();
+        //System.out.println("Init table");
         for (int i = 1; i < fingers.length; i++) {
             fingers[i] = nPrime.findSucessor(this.identifier.createNew(base.pow(i), true));
-            
+            //System.out.println(", found successor: = " + fingers[i]);   
         }
     }
 
     public Node findSucessor(ID iden) {
         Node nPrime = findPredecessor(iden);
+        //System.out.println("Found sucsessor for: " + iden + ", which is: " + nPrime.fingers[0].identifier + ", Using predecessor " + nPrime.identifier);  
         return nPrime.fingers[0];
     }
 
     public Node findPredecessor(ID iden) {
         Node nPrime = this;
         Node oldPrime = this;
-
+        
         // id not in (nPrime.id, nPrime.sucessor.id]
-        while (!iden.inRange(nPrime.identifier, 
-               nPrime.fingers[0].identifier, 
-               false, true)) {
-               
+        while (!iden.inRange(nPrime.identifier, nPrime.fingers[0].identifier, false, true)) {
             nPrime = nPrime.findClosestPrecedingFinger(iden);
             if(nPrime == oldPrime)
                break;
@@ -81,8 +79,9 @@ public class Node {
 
     public Node findClosestPrecedingFinger(ID iden) {
         for (int i = fingers.length - 1; i >= 0; i--) {
+            // System.out.print("Closestpredfing not (id, iden) ");
             // fingers[i].id in (this.id, iden)
-            if (!fingers[i].identifier.inRange(this.identifier, iden, false, false)
+            if (fingers[i].identifier.inRange(this.identifier, iden, false, false)
                 && fingers[i].online)
                 return this.fingers[i];
         }
@@ -90,9 +89,11 @@ public class Node {
     }
 
     public void updateOthers() {
+        //System.out.println("Update others");
         for (int i = 1; i < fingers.length; i++) {
             // p = predecessor(this.ID - 2^i)
             Node p = findPredecessor(this.identifier.createNew(base.pow(i), false));
+            //System.out.println(", Found Predecessor: "+ p);
             p.updateFingerTable(this, i);
         }
     }
@@ -131,7 +132,7 @@ public class Node {
     public void fixFingers() {
         for (int i = 1; i < fingers.length; i++) {
             fingers[i] = this.findSucessor(this.identifier.createNew(base.pow(i), true));
-            
+            //System.out.println(", found successor: = " + fingers[i]);   
             /*
     			 * runs until an online node has been found, 
     			 * and there arent two entries of the same node in the finger table.

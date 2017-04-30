@@ -128,6 +128,6 @@ public class ID implements Comparable<ID> {
     
     @Override
     public String toString(){
-      return "" + id;
+      return "" + getPercentage();
     }
 }
