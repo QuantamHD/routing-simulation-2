@@ -57,8 +57,13 @@ public class Node {
         }
     }
 
-    public Node findSucessor(ID iden) {
-        Node nPrime = findPredecessor(iden);
+    public Node findSucessor(ID iden){
+        ID next = iden;
+        Node nPrime;
+        do{
+            nPrime = findPredecessor(next);
+            next = nPrime.fingers[0].identifier.createNew(BigInteger.valueOf(1), true);
+        }while(!nPrime.fingers[0].online);
         //System.out.println("Found sucsessor for: " + iden + ", which is: " + nPrime.fingers[0].identifier + ", Using predecessor " + nPrime.identifier);  
         return nPrime.fingers[0];
     }
@@ -81,8 +86,7 @@ public class Node {
         for (int i = fingers.length - 1; i >= 0; i--) {
             // System.out.print("Closestpredfing not (id, iden) ");
             // fingers[i].id in (this.id, iden)
-            if (fingers[i].identifier.inRange(this.identifier, iden, false, false)
-                && fingers[i].online)
+            if (fingers[i].identifier.inRange(this.identifier, iden, false, false))
                 return this.fingers[i];
         }
         return this;
@@ -112,9 +116,10 @@ public class Node {
 
     public void stabilize() {
         if (online == true) {
+            // ch
             Node x = this.fingers[0].pred;
             // x in range (this, fingers[0])
-            if(x.identifier.inRange(this.identifier, fingers[0].identifier, false, false)){
+            if(x.online && x.identifier.inRange(this.identifier, fingers[0].identifier, false, false)){
                 this.fingers[0] = x;
             }
             this.fingers[0].notify(this);
@@ -130,7 +135,7 @@ public class Node {
             }
     }
     public void fixFingers() {
-        for (int i = 1; i < fingers.length; i++) {
+        for (int i = 0; i < fingers.length; i++) {
             fingers[i] = this.findSucessor(this.identifier.createNew(base.pow(i), true));
             //System.out.println(", found successor: = " + fingers[i]);   
             /*
