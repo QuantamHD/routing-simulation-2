@@ -45,19 +45,19 @@ public class Node {
     }
 
     public void initFingerTable(Node nPrime) {
-        fingers[0] = nPrime.findSucessor(this.identifier);
+        fingers[0] = nPrime.findSuccessor(this.identifier);
         pred = fingers[0].pred;
         fingers[0].pred = this;
         if(fingers[0].fingers[0] == fingers[0])
             fingers[0].fingers[0] = this;
         //System.out.println("Init table");
         for (int i = 1; i < fingers.length; i++) {
-            fingers[i] = nPrime.findSucessor(this.identifier.createNew(base.pow(i), true));
+            fingers[i] = nPrime.findSuccessor(this.identifier.createNew(base.pow(i), true));
             //System.out.println(", found successor: = " + fingers[i]);   
         }
     }
 
-    public Node findSucessor(ID iden){
+    public Node findSuccessor(ID iden){
         ID next = iden;
         Node nPrime;
         do{
@@ -136,14 +136,14 @@ public class Node {
     }
     public void fixFingers() {
         for (int i = 0; i < fingers.length; i++) {
-            fingers[i] = this.findSucessor(this.identifier.createNew(base.pow(i), true));
+            fingers[i] = this.findSuccessor(this.identifier.createNew(base.pow(i), true));
             //System.out.println(", found successor: = " + fingers[i]);   
             /*
     			 * runs until an online node has been found, 
     			 * and there arent two entries of the same node in the finger table.
     			 *
                 while (!fingers[i].online) {
-                    fingers[i] = fingers[i].findSucessor(fingers[i].identifier);
+                    fingers[i] = fingers[i].findSuccessor(fingers[i].identifier);
                 }*/
         }
     }
