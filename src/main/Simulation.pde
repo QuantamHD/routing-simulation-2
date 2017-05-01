@@ -1,4 +1,3 @@
-package src.main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +15,7 @@ public class Simulation {
 
     JOptionPane removeNotify;
     int nodeIDs = 0;
-
+    /*
     public static void main(String[] args) {
         Simulation s = new Simulation();
         Scanner in = new Scanner(System.in);
@@ -24,15 +23,20 @@ public class Simulation {
         do {
             // output
             System.out.println("\nWhat would you like to do?");
-            System.out.println("'a':  Add a Node");
-            System.out.println("'a1': Add a previously removed Node");
-            System.out.println("'r':  Remove a Node");
-            System.out.println("'d':  Go to display options");
-            System.out.println("'q':  Quit");
+            System.out.println("'o':  options");
             str = in.nextLine();
 
+            // options
+            if (str.equals("o")){
+               System.out.println("'a':  Add a Node");
+               System.out.println("'a1': Add a previously removed Node");
+               System.out.println("'r':  Remove a Node");
+               System.out.println("'d':  Go to display options");
+               System.out.println("'s':  Stabilize and fix fingers");
+               System.out.println("'q':  Quit");
+               
             // add
-            if (str.equals("a")) {
+            } else if (str.equals("a")) {
                 s.addNode(true);
                 System.out.println("Node added");
 
@@ -52,28 +56,39 @@ public class Simulation {
 
                     s.removeNode();
                 }
-
-                // enter display options
+                
+            
+            // Stabilize
+            } else if (str.equals("s")){
+               s.stabilize();
+               
+               
+            // enter display options
             } else if (str.equals("d")) {
                 displayMode(s, in);
             }
         } while (!str.equals("q"));
     }
+    */
 
     // For error checking a simulation
-    public static void displayMode(Simulation s, Scanner in) {
+    public void displayMode(Simulation s, Scanner in) {
         String str;
         do {
             System.out.println("\nDisplay menu");
-            System.out.println("'d':  Nodes and thier numbers");
-            System.out.println("'df': Display Nodes, thier numbers and thier fingers");
-            System.out.println("'f':  Get the fingers for a particular node");
-            System.out.println("'r':  Get the deactivated nodes and thier numbers");
-            System.out.println("'L':  Leave display options");
+            System.out.println("'o':  options");
             str = in.nextLine();
 
+            // options
+            if (str.equals("o")){
+               System.out.println("'d':  Nodes and thier numbers");
+               System.out.println("'df': Display Nodes, thier numbers and thier fingers");
+               System.out.println("'f':  Get the fingers for a particular node");
+               System.out.println("'r':  Get the deactivated nodes and thier numbers");
+               System.out.println("'L':  Leave display options");
+               
             // Display
-            if (str.equals("d")) {
+            } else if (str.equals("d")) {
                 for (Map.Entry<Integer, Node> entry : s.actives.entrySet()) {
                     System.out.println("Key = " + entry.getKey() + ", Node = " + entry.getValue());
                 }
@@ -84,15 +99,23 @@ public class Simulation {
                 for (Map.Entry<Integer, Node> entry : s.actives.entrySet()) {
                     current = entry.getValue();
 
-                    System.out.println("Key = " + entry.getKey() + ", Node = " + entry.getValue());
-                    System.out.println("Fingers are:");
-                    for (int i = 0; i < current.fingers.length; i++) {
-                        System.out.print("\tIndex : " + i + ", is node : ");
-                        if (current.fingers[i] == current) {
-                            System.out.println("Itself");
-                            break;
+                    System.out.println("\nKey = " + entry.getKey() + ", Node = " + entry.getValue());
+                    System.out.println("\tPred = " + entry.getValue().pred);
+                    System.out.println("\tFingers are:");
+                    System.out.print("\t\tIndex : 0, is node : ");
+                    if (current.fingers[0] == current) 
+                        System.out.println("Itself");
+                    else
+                     System.out.println(current.fingers[0]);
+                    
+                    for (int i = 1; i < current.fingers.length; i++) {
+                        if(current.fingers[i - 1] != current.fingers[i]){
+                           System.out.print("\t\tIndex : " + i + ", is node : ");
+                           if (current.fingers[i] == current) 
+                              System.out.println("Itself");
+                           else
+                              System.out.println(current.fingers[i]);
                         }
-                        System.out.println(current.fingers[i]);
                     }
                 }
 
@@ -103,9 +126,10 @@ public class Simulation {
                     int key = Integer.parseInt(in.nextLine());
                     Node current = s.actives.get(key);
                     System.out.println("Key = " + key + ", Node = " + current);
-                    System.out.println("Fingers are:");
+                    System.out.println("\tPred = " + current.pred);
+                    System.out.println("\tFingers are:");
                     for (int i = 0; i < current.fingers.length; i++) {
-                        System.out.print("\tIndex : " + i + ", is node : ");
+                        System.out.print("\t\tIndex : " + i + ", is node : ");
                         System.out.println(current.fingers[i]);
                     }
                 } catch (NumberFormatException e) {
@@ -132,9 +156,10 @@ public class Simulation {
      * calls stabilize and fixFingers on each active node in the network
      */
     public void stabilize() {
-        for (int i = 0; i < actives.size(); i++) {
-            actives.get(i).stabilize();
-            actives.get(i).fixFingers();
+        for (Map.Entry<Integer, Node> entry : this.actives.entrySet()) {
+            //System.out.println("Fixing Node: " + entry.getValue());
+            entry.getValue().stabilize();
+            entry.getValue().fixFingers();
         }
     }
 
@@ -145,7 +170,7 @@ public class Simulation {
      *
      * @param newNode - Whether or not the node should be selected from the deactive set.
      */
-    public void addNode(boolean newNode) {
+    public SimulationNode addNode(boolean newNode) {
         if (!newNode) {
             if (deactives.size() > 0) {
                 Node oldNode = deactives.remove(0);
@@ -157,7 +182,7 @@ public class Simulation {
                     oldNode.join(null);
                 }
                 actives.put(nodeIDs++, oldNode);
-                return;
+                return new SimulationNode(oldNode, nodeIDs - 1);
             }
         }
 
@@ -173,26 +198,35 @@ public class Simulation {
             node.join(null);
         }
 
+
+
         actives.put(nodeIDs++, node);
+
+        return new SimulationNode(node, nodeIDs - 1);
     }
 
     /**
      * removes a node from the "network"
      */
-    public void removeNode() {
+    public SimulationNode removeNode() {
         String input = JOptionPane.showInputDialog("What Node Should Be Removed?");
         try {
             int index = Integer.parseInt(input);
-            if (actives.get(index) == null)
+            if (actives.get(index) == null) {
                 JOptionPane.showMessageDialog(null, "Node " + index + " is not on Chord",
                         "Alert", JOptionPane.ERROR_MESSAGE);
+                return null;
+            }
             else {
                 actives.get(index).leave();
                 deactives.add(actives.remove(index));
+                return new SimulationNode(actives.get(index), index);
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "That is not an integer",
                     "Alert", JOptionPane.ERROR_MESSAGE);
         }
+
+        return null;
     }
 }
