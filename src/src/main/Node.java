@@ -46,12 +46,12 @@ public class Node {
             // if the next finger is between this and the previous finger
             // then we just set it to the last finger. Will leave this optimization
             // commented for now
-        	if(fingers[i + 1].identifier.compareTo(this.identifier) >= 0 &&
-        			fingers[i + 1].identifier.compareTo(fingers[i].identifier) < 0)
-        		fingers[i + 1] = fingers[i];
+            if(fingers[i + 1].identifier.compareTo(this.identifier) >= 0 &&
+                    fingers[i + 1].identifier.compareTo(fingers[i].identifier) < 0)
+                fingers[i + 1] = fingers[i];
             else{
-            	fingers[i + 1] =
-                    nPrime.findPredecessor(fingers[i + 1].identifier);
+                fingers[i + 1] =
+                        nPrime.findPredecessor(fingers[i + 1].identifier);
             }
         }
     }
@@ -71,7 +71,7 @@ public class Node {
         while (!(iden.compareTo(nPrime.identifier) > 0 && iden.compareTo(nPrime.fingers[0].identifier) <= 0)) {
             nPrime = nPrime.findClosestPrecedingFinger(iden);
             if(nPrime == oldPrime)
-               break;
+                break;
             oldPrime = nPrime;
         }
         return nPrime;
@@ -140,7 +140,7 @@ public class Node {
         for (int i = 1; i < fingers.length; i++) {
             if (!fingers[i].online) {
                 /*
-    			 * runs until an online node has been found, 
+    			 * runs until an online node has been found,
     			 * and there arent two entries of the same node in the finger table.
     			 */
                 while (!fingers[i].online && fingers[i] != fingers[i - 1]) {
