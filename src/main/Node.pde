@@ -149,13 +149,44 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node{" +
-                ", Location= " + identifier.getPercentage() +
-                //"pred = " + pred +
-                ", identifier=" + identifier +
-                // ", pred=" + pred +
-                // ", fingers=" + Arrays.toString(fingers) +
-                ", online=" + online +
-                '}';
+        String ip = "";
+        for(int i = 0; i < this.ip.length; i++){
+          int a = this.ip[i] & 0xFF;
+          
+          if(i == this.ip.length - 1)
+            ip += a;
+          else
+            ip += a + ".";
+          
+        }
+        
+        String percentage = "\nPercentage: " + identifier.getPercentage() + "\n";
+        
+        
+        String fingerTable = "...Finger Table...\n";
+        
+        Node current = this;
+        
+        if (current.fingers[0] == current) 
+         fingerTable += ("Itself\n");
+        else
+         fingerTable += ("\t\tIndex : " + 0 + ", is node : ") + (current.fingers[0].identifier.getPercentage()) + "\n";
+
+               
+        for (int i = 1; i < current.fingers.length; i++) {
+            if(current.fingers[i - 1] != current.fingers[i]){
+                fingerTable += ("\t\tIndex : " + i + ", is node : ");
+               if (current.fingers[i] == current)
+                  fingerTable += ("Itself\n");
+               else
+                  fingerTable += (current.fingers[i].identifier.getPercentage()) + "\n";
+            }
+        }
+        
+        
+        return "IP: " + ip 
+        + percentage
+        + "\n\n" 
+        +  fingerTable;
     }
 }

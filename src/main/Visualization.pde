@@ -6,19 +6,59 @@ import java.util.ArrayList;
  */
 public class Visualization {
     private ArrayList<Actor> actors;
+    private ArrayList<Button> buttons;
     private Simulation simulation;
     private float radius;
+
 
     public Visualization() {
         this.actors = new ArrayList<Actor>();
         this.simulation = new Simulation();
         this.radius = height * 0.9;
+        
+        Button addButton = new Button(new Position(width, height), "Add Node");
+        Button remButton = new Button(new Position(width, height - 80), "Rem Node");
+        Button stabilizeButton = new Button(new Position(width, height - 160), "Stabilize");
+        Button routeButton = new Button(new Position(width, height - 240), "Route");
+        
+        this.actors.add(addButton);
+        this.actors.add(remButton);
+        this.actors.add(stabilizeButton);
+        this.actors.add(routeButton);
+        
+        
+        addButton.setAction(new Action(){
+          public void run(){
+            addNode(); 
+          }
+        });
+        
+        remButton.setAction(new Action(){
+          public void run(){
+             simulation.removeNode();
+          }
+        });
+        
+        stabilizeButton.setAction(new Action(){
+          public void run(){
+            simulation.stabilize(); 
+          }
+        });
+        
+        
     }
 
     public void render(){
       drawChordRing();
       drawActors();
-      System.out.println(actors.size());
+    }
+    
+    public void clicked(){
+      for(int i = 0; i < actors.size(); i++){
+        if(actors.get(i).isMouseColliding(mouseX,mouseY)){
+          actors.get(i).clicked(); 
+        }
+      }
     }
     
     private void drawChordRing(){
@@ -29,11 +69,24 @@ public class Visualization {
     
     private void drawActors(){
       for(Actor actor: actors){
-        actor.draw();
+        if(actor instanceof NodeVisual){
+           NodeVisual vis = (NodeVisual) actor;
+           if(vis.node.node.online){
+             vis.draw(); 
+           }
+        } else {
+          actor.draw();
+        }
+      }
+      
+      for(Actor actor: actors){
+        actor.hover();
       }
     }
+    
+    
 
-    public void addNode(){
+    private void addNode(){
         SimulationNode simulationNode = simulation.addNode(true);
         double twoPi = Math.PI * 2;
         Position pos = new Position(

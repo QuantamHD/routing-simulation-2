@@ -21,5 +21,10 @@ public abstract class Actor {
     public void clicked(){
     }
     
+    
+    public void hover(){
+    }
+   
+    
     public abstract void draw();
 }

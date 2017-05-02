@@ -6,10 +6,11 @@ void setup(){
 }
     
 void draw(){
+    
     background(0xCFD8DC);
     nodeVisualization.render();
 }
 
 void mouseReleased(){
-  nodeVisualization.addNode();
-}  
+  nodeVisualization.clicked(); 
+}

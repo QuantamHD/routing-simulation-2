@@ -2,8 +2,11 @@
 /**
  * Created by ethan on 5/1/17.
  */
+static boolean hoverDisplayed = false;
+ 
 public class NodeVisual extends Actor{
     SimulationNode node;
+    boolean displayingHoverMenu = false;
     
   
     public NodeVisual(Position pos, SimulationNode node){
@@ -34,5 +37,28 @@ public class NodeVisual extends Actor{
         fill(0xFFFAFAFA);
         text(node.id + "", super.position.getX() - 10 , super.position.getY() + 10);
         
+        
+    }
+    
+    
+    @Override
+    public void hover(){
+      if(isMouseColliding(mouseX, mouseY) && (!hoverDisplayed || displayingHoverMenu)){
+          hoverDisplayed = true; 
+          displayingHoverMenu = true;
+          
+          rect(mouseX,mouseY, 450,400);
+          
+          fill(0);
+          color(0);
+          textSize(16);
+          text(node.node.toString(), mouseX + 32, mouseY + 32);
+          
+       }
+        
+        if(!isMouseColliding(mouseX, mouseY) && displayingHoverMenu){
+          hoverDisplayed = false;
+          displayingHoverMenu = false;
+        }
     }
 }

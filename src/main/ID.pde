@@ -15,8 +15,6 @@ public class ID implements Comparable<ID> {
           
    private final BigDecimal KEY_SPACE_SIZE = new BigDecimal(MAX_ID);
 
-
-
     /**
      * This is the static init for this class which will create a big decimal of
      * the max value of 160 unsigned bits.
