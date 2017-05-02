@@ -224,7 +224,7 @@ public class Simulation {
                 rand.nextBytes(ip);
                 theNode.id = new ID(ip);
                 JOptionPane.showMessageDialog(null, "Node " + index + " at " + 
-                      theNode.node.identifier.getPercentage() + "\nWill look up node respnsible for location " 
+                      theNode.node.identifier.getPercentage() + "\nWill look up node preceding location " 
                       + theNode.id.getPercentage());
             }
         } catch (NumberFormatException e) {

@@ -111,7 +111,7 @@ public class Visualization {
       if(routingPath == null)
         return;
         
-      System.out.println(routingPath.size());
+      //System.out.println(routingPath.size());
 
       for(int i = 0; i < routingPath.size() - 1; i++){
          stroke(0xFFF4511E);
