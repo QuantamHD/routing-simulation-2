@@ -66,7 +66,7 @@ public class Node {
         Node nPrime;
         path.add(this.identifier);
         do{
-            nPrime = findPredecessor(next);
+            nPrime = findPredecessor(next, path);
             next = nPrime.fingers[0].identifier.createNew(BigInteger.valueOf(1), true);
         }while(!nPrime.fingers[0].online);
         return path;
@@ -83,9 +83,11 @@ public class Node {
         Node oldPrime = this;
         
         while(!iden.inRange(nPrime.identifier, nPrime.fingers[0].identifier, false, true)){
-            nPrime = nPrime.findClosestPrecedingFinger(iden, path);
+            nPrime = nPrime.findClosestPrecedingFinger(iden, path); 
             if(nPrime == oldPrime)
               break;
+              
+            path.add(nPrime.identifier);
             oldPrime = nPrime;
         }
         return nPrime;

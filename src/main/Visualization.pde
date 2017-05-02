@@ -9,6 +9,8 @@ public class Visualization {
     private ArrayList<Button> buttons;
     private Simulation simulation;
     private float radius;
+    
+    private ArrayList<ID> routingPath = null;
 
 
     public Visualization() {
@@ -19,7 +21,7 @@ public class Visualization {
         Button addButton = new Button(new Position(width, height), "Add Node");
         Button remButton = new Button(new Position(width, height - 80), "Rem Node");
         Button stabilizeButton = new Button(new Position(width, height - 160), "Stabilize");
-        Button routeButton = new Button(new Position(width, height - 240), "Route");
+        final Button routeButton = new Button(new Position(width, height - 240), "Route");
         
         this.actors.add(addButton);
         this.actors.add(remButton);
@@ -47,7 +49,21 @@ public class Visualization {
         
         routeButton.setAction(new Action(){
           public void run(){
-           
+            
+            if(routingPath != null){
+              routingPath = null;
+              routeButton.text = "Route";
+              return;
+            }
+            
+            
+            LookUpBoxingClass lookup = simulation.generateLookUp();
+            if(lookup == null){
+               return;
+            }
+            
+            routeButton.text = "Hide Route";
+            routingPath = lookup.node.findPath(lookup.id);
           }
         });
         
@@ -57,6 +73,7 @@ public class Visualization {
     public void render(){
       drawChordRing();
       drawActors();
+
     }
     
     public void clicked(){
@@ -84,12 +101,41 @@ public class Visualization {
           actor.draw();
         }
       }
-      
+      drawRoutingPath();
       for(Actor actor: actors){
         actor.hover();
       }
     }
     
+    private void drawRoutingPath(){
+      if(routingPath == null)
+        return;
+        
+      System.out.println(routingPath.size());
+
+      for(int i = 0; i < routingPath.size() - 1; i++){
+         stroke(0xFFF4511E);
+         strokeWeight(3);
+         Position id1 = getPercentagePosition(routingPath.get(i));
+         Position id2 = getPercentagePosition(routingPath.get(i + 1));
+         
+         line(id1.getX(), id1.getY(), id2.getX(), id2.getY());
+         stroke(0);
+         strokeWeight(1);
+      }
+    }
+    
+    private Position getPercentagePosition(ID id){
+      double percentage = id.getPercentage();
+      double twoPi = Math.PI * 2;
+
+      Position pos = new Position(
+            (float)(Math.cos(twoPi * percentage)*(radius/2.0) + width/2.0),
+            (float)(Math.sin(twoPi * percentage)*(radius/2.0) + height/2.0)
+      );
+      
+      return pos;
+    }
     
 
     private void addNode(){

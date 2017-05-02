@@ -17,9 +17,7 @@ public class Button extends Actor{
   }
   
   @Override
-  public void clicked(){
-    System.out.println("The other");
-    
+  public void clicked(){    
      if(action != null){
        action.run(); 
      }
