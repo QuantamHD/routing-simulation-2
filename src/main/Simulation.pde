@@ -204,7 +204,34 @@ public class Simulation {
 
         return new SimulationNode(node, nodeIDs - 1);
     }
+    
+    /**
+     * Returns a LookUpBoxingClass, or null if method didn't successed
+     */
+    public LookUpBoxingClass generateLookUp(){
+        String input = JOptionPane.showInputDialog("What Node Should LookUp Start From?");
+        LookUpBoxingClass theNode = null;
+        try {
+            int index = Integer.parseInt(input);
+            if (actives.get(index) == null) 
+                JOptionPane.showMessageDialog(null, "Node " + index + " is not on Chord",
+                        "Alert", JOptionPane.ERROR_MESSAGE);
+            else{
+                theNode = new LookUpBoxingClass();
+                theNode.node = actives.get(index);
+                Random rand = new Random(System.currentTimeMillis());
+                byte[] ip = new byte[5];
+                rand.nextBytes(ip);
+                theNode.id = new ID(ip);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "That is not an integer",
+                    "Alert", JOptionPane.ERROR_MESSAGE);
+        }
 
+        return theNode;
+    }
+    
     /**
      * removes a node from the "network"
      */

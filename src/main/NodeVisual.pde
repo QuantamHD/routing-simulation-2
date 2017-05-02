@@ -18,12 +18,15 @@ public class NodeVisual extends Actor{
     }
     @Override 
     public boolean isMouseColliding(int mouseX, int mouseY){
+        /*
         if(mouseX > super.position.getX() - (super.mwidth/2.0)&& mouseY > super.position.getY() - (super.mheight/2.0)){
             if(mouseX < (super.position.getX() + super.mwidth) && mouseY < super.position.getY() + super.mheight){
                 return true;
             }
         }
-        return false;
+        return false; */
+        
+        return super.mwidth / 2 > Math.sqrt(Math.pow(mouseX-super.position.getX(), 2) + Math.pow(mouseY - super.position.getY(), 2));
     }
     
     @Override

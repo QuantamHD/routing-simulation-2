@@ -55,7 +55,59 @@ public class Node {
             //System.out.println(", found successor: = " + fingers[i]);   
         }
     }
-
+    /**
+     * returns an array list containing the path to the given key space
+     * @param ID iden
+     * @return ArrayList<ID>
+     */
+    public ArrayList<ID> findPath(ID iden){
+        ArrayList<ID> path = new ArrayList<ID>();
+        ID next = iden;
+        Node nPrime;
+        path.add(this.identifier);
+        do{
+            nPrime = findPredecessor(next);
+            next = nPrime.fingers[0].identifier.createNew(BigInteger.valueOf(1), true);
+        }while(!nPrime.fingers[0].online);
+        return path;
+    }
+    /**
+     * this functions acts the exact same way as the other findPredecessor, but it keeps track of an
+     * ArrayList containing the current node lookup path.
+     * @param ID iden
+     * @param ArrayList<ID> path
+     * @return Node nPrime
+     */
+    public Node findPredecessor(ID iden, ArrayList<ID> path){
+        Node nPrime = this;
+        Node oldPrime = this;
+        
+        while(!iden.inRange(nPrime.identifier, nPrime.fingers[0].identifier, false, true)){
+            nPrime = nPrime.findClosestPrecedingFinger(iden, path);
+            if(nPrime == oldPrime)
+              break;
+            oldPrime = nPrime;
+        }
+        return nPrime;
+    }
+    /**
+     * this funcitons acts the exact same way as the other findClosestPrecedingFinger, except it 
+     * adds a new entry into the arrayList path when a new node is found
+     * @param ID iden
+     * @param ArrayList<ID> path
+     * @return Node nPrime
+     */
+    public Node findClosestPrecedingFinger(ID iden, ArrayList<ID> path){
+        for (int i = fingers.length-1; i >= 0; i--){
+            if (fingers[i].identifier.inRange(this.identifier, iden, false, false)){
+                if(path.get(path.size()-1) != this.identifier)
+                    path.add(fingers[i].identifier);
+                return this.fingers[i]; 
+            }
+        }
+        return this;
+    }
+    
     public Node findSuccessor(ID iden){
         ID next = iden;
         Node nPrime;
