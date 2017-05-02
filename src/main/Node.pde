@@ -64,6 +64,7 @@ public class Node {
         ArrayList<ID> path = new ArrayList<ID>();
         ID next = iden;
         Node nPrime;
+        path.add(this.identifier);
         do{
             nPrime = findPredecessor(next);
             next = nPrime.fingers[0].identifier.createNew(BigInteger.valueOf(1), true);
