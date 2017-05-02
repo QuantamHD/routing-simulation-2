@@ -223,12 +223,15 @@ public class Simulation {
                 byte[] ip = new byte[5];
                 rand.nextBytes(ip);
                 theNode.id = new ID(ip);
+                JOptionPane.showMessageDialog(null, "Node " + index + " at " + 
+                      theNode.node.identifier.getPercentage() + "\nWill look up node respnsible for location " 
+                      + theNode.id.getPercentage());
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "That is not an integer",
                     "Alert", JOptionPane.ERROR_MESSAGE);
         }
-
+        
         return theNode;
     }
     
