@@ -18,7 +18,6 @@ public class Visualization {
     public void render(){
       drawChordRing();
       drawActors();
-      System.out.println(actors.size());
     }
     
     private void drawChordRing(){
