@@ -3,26 +3,26 @@
  * Created by ethan on 5/1/17.
  */
 public class Position {
-    double x,y;
+    float x,y;
 
-    public Position(double x, double y) {
+    public Position(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
-    public double getX() {
+    public float getX() {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public double getY() {
+    public float getY() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(float y) {
         this.y = y;
     }
 }

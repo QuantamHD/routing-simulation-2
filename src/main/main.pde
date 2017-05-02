@@ -1,11 +1,15 @@
+Visualization nodeVisualization;
+
 void setup(){
-  size(1200, 1000);
-  
+  size(1920, 1080);
+  nodeVisualization = new Visualization();
 }
-
-
+    
 void draw(){
-    background(0);
-    color(0xFFFFFF);
-    ellipse(width/2.0,height/2.0,100,100);
+    background(0xCFD8DC);
+    nodeVisualization.render();
 }
+
+void mouseReleased(){
+  nodeVisualization.addNode();
+}  

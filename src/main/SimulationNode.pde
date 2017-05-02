@@ -10,4 +10,13 @@ public class SimulationNode {
         this.node = node;
         this.id = id;
     }
+    
+    public boolean equals(Object oObject){
+      if(oObject instanceof SimulationNode){
+        SimulationNode other = (SimulationNode) oObject;
+        return node.identifier.compareTo(other.node.identifier) == 0;
+      }
+      
+      return false;
+    }
 }

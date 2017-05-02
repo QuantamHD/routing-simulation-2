@@ -6,15 +6,19 @@ import java.util.ArrayList;
  */
 public abstract class Actor {
     private Position position;
-    private double height, width;
+    private float mheight, mwidth;
 
     public boolean isMouseColliding(int mouseX, int mouseY){
         if(mouseX > position.getX() && mouseY > position.getY()){
-            if(mouseX < position.getX() + width && mouseY < position.getY() + height){
+            if(mouseX < (position.getX() + mwidth) && mouseY < position.getY() + mheight){
                 return true;
             }
         }
         return false;
+    }
+   
+    
+    public void clicked(){
     }
     
     public abstract void draw();
